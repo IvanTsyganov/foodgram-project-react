@@ -1,1 +1,56 @@
-# praktikum_new_diplom
+# Foodgram
+## Author
+Ivan Tsyganov (zamegagurren@yandex.ru)
+## Description 
+This is a final project of Backend-development course 
+by Yandex-practicum. Project consists of 
+online-service (food-management site with recipes)
+and API-service for interaction.
+
+You can sign up, post your recipes, check recipes 
+from other users, add recipes in favorites, 
+follow your favorite users and, finally, 
+download ingredient-list for favorite recipes.
+
+## Features 
+- online-service in Docker-containers
+- API-service 
+- Docker-containers were used for project deploy
+- I will upload frontend and backend to DockerHub
+- i will add workflow in near future
+
+## How to start it:
+
+1. Download in install Docker
+2. Create .env file (see infra env.template)
+3. Create virtual environment
+4. Install dependencies from backend/requirements.txt
+```
+pip install -r requirements.txt
+```
+5. Run docker compose file from '/infra-dev/'-directory
+(i'll change to '/infra/' when i'll pass 1st review):
+```
+docker-compose up
+```
+6. Make migrations:
+```
+docker-compose exec backend python manage.py makemigrations
+docker-compose exec backend python manage.py migrate
+
+(in local development use 'python manage.py migrate')
+```
+7. Create superuser
+```
+docker-compose exec backend python manage.py createsuperuser
+name
+email
+password (twice)
+```
+8. Collect static:
+```
+docker-compose exec backend python manage.py collectstatic --no-input
+```
+9. Before recipe creation you have to sign in as superuser in
+ http://localhost/admin and add some tags:
+10. Use API documentation http://localhost/api/docs/redoc.html.
