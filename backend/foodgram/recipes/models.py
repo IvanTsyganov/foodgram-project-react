@@ -113,8 +113,11 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
         ordering = ('-pub_date',)
 
+    def __str__(self):
+        return self.title
 
-class Favorites(models.Model):
+
+class Favorite(models.Model):
     user = models.ForeignKey(
         UserFoodgram,
         on_delete=models.CASCADE,
@@ -131,10 +134,12 @@ class Favorites(models.Model):
     )
 
     class Meta:
-        unique_together = (
-            'user',
-            'recipe',
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'recipe'],
+                name='unique_favorite'
+            )
+        ]
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
 
@@ -157,12 +162,17 @@ class ShoppingCart(models.Model):
     )
 
     class Meta:
-        unique_together = (
-            'user',
-            'recipe',
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'recipe'],
+                name='unique_shoppingcart'
+            )
+        ]
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзина'
+
+    def __str__(self):
+        return f'{self.user.username} - {self.recipe.title}'
 
 
 class RecipeIngredient(models.Model):
@@ -184,9 +194,17 @@ class RecipeIngredient(models.Model):
     )
 
     class Meta:
-        unique_together = (
-            'recipe',
-            'ingredient',
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=['recipe', 'ingredient'],
+                name='unique_recipe_in_ingredient'
+            )
+        ]
         verbose_name = 'Ингредиенты в рецепте'
         verbose_name_plural = 'Ингредиенты в рецептах'
+
+    def __str__(self):
+        return (f'{self.recipe.title}: '
+                f'{self.ingredient.name} - '
+                f'{self.amount} '
+                f'{self.ingredient.measurement_unit}')

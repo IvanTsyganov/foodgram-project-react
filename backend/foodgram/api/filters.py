@@ -1,11 +1,12 @@
 from django_filters.rest_framework import FilterSet, filters
+
 from recipes.models import Recipe, Tag
 
 
 class RecipeFilter(FilterSet):
-    tags = filters.ModelMultipleChoiceFilter(field_name='tags__slug',
-                                             to_field_name='slug',
-                                             queryset=Tag.objects.all())
+    tag = filters.ModelMultipleChoiceFilter(field_name='tag__slug',
+                                            to_field_name='slug',
+                                            queryset=Tag.objects.all())
     is_favorited = filters.BooleanFilter(
         method='is_favorited_filter')
     is_in_shopping_cart = filters.BooleanFilter(
@@ -13,7 +14,7 @@ class RecipeFilter(FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ('tags', 'author',)
+        fields = ('tag', 'author',)
 
     def is_favorited_filter(self, queryset, name, value):
         user = self.request.user
