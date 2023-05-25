@@ -1,4 +1,7 @@
 # Foodgram
+
+![](https://github.com/IvanTsyganov/foodgram-project-react/actions/workflows/main.yml/badge.svg)
+
 ## Author
 Ivan Tsyganov (zamegagurren@yandex.ru)
 ## Description 
@@ -16,8 +19,8 @@ download ingredient-list for favorite recipes.
 - online-service in Docker-containers
 - API-service 
 - Docker-containers were used for project deploy
-- I will upload frontend and backend to DockerHub
-- i will add workflow in near future
+- Frontend and backend are uploaded to DockerHub
+- Working workflow
 
 ## How to start it:
 
@@ -28,8 +31,7 @@ download ingredient-list for favorite recipes.
 ```
 pip install -r requirements.txt
 ```
-5. Run docker compose file from '/infra-dev/'-directory
-(i'll change to '/infra/' when i'll pass 1st review):
+5. Run docker compose file from '/infra/'-directory
 ```
 docker-compose up
 ```
@@ -38,7 +40,7 @@ docker-compose up
 docker-compose exec backend python manage.py makemigrations
 docker-compose exec backend python manage.py migrate
 
-(in local development use 'python manage.py migrate')
+(in local development you can use 'python manage.py migrate')
 ```
 7. Create superuser
 ```
@@ -54,3 +56,12 @@ docker-compose exec backend python manage.py collectstatic --no-input
 9. Before recipe creation you have to sign in as superuser in
  http://localhost/admin and add some tags:
 10. Use API documentation http://localhost/api/docs/redoc.html.
+
+Server and superuser data:
+
+server public ip: 
+```62.84.121.7```
+
+superuser:
+- name: admin
+- password: 12qwaszx

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserFoodgram, Follow
+from .models import Follow, UserFoodgram
 
 
 @admin.register(UserFoodgram)
