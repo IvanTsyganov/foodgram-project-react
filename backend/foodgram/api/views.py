@@ -8,10 +8,9 @@ from rest_framework import filters, mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+
 from users.models import Follow, UserFoodgram
-
 from foodgram.settings import FILE_NAME
-
 from .filters import RecipeFilter
 from .methods import favorite_shopping_cart
 from .pagination import CustomPaginator
