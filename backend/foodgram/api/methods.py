@@ -20,8 +20,8 @@ def favorite_shopping_cart(self, request, model, **kwargs):
                             status=status.HTTP_201_CREATED)
         return Response({'errors': 'Рецепт уже добавлен.'},
                         status=status.HTTP_400_BAD_REQUEST)
-    else:
-        get_object_or_404(model, user=request.user,
-                          recipe=recipe).delete()
-        return Response({'detail': 'Рецепт успешно удален.'},
-                        status=status.HTTP_204_NO_CONTENT)
+
+    get_object_or_404(model, user=request.user,
+                      recipe=recipe).delete()
+    return Response({'detail': 'Рецепт успешно удален.'},
+                    status=status.HTTP_204_NO_CONTENT)

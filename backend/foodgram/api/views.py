@@ -75,11 +75,10 @@ class UserViewSet(mixins.CreateModelMixin,
             return Response(serializer.data,
                             status=status.HTTP_201_CREATED)
 
-        if request.method == 'DELETE':
-            get_object_or_404(Follow, user=request.user,
-                              author=author).delete()
-            return Response({'detail': 'Успешная отписка'},
-                            status=status.HTTP_204_NO_CONTENT)
+        get_object_or_404(Follow, user=request.user,
+                          author=author).delete()
+        return Response({'detail': 'Успешная отписка'},
+                        status=status.HTTP_204_NO_CONTENT)
 
 
 class IngredientViewSet(mixins.ListModelMixin,
@@ -118,13 +117,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post', 'delete'],
             permission_classes=(IsAuthenticated,))
     def favorite(self, request, **kwargs):
-        favorite_shopping_cart(self, request, Favorite, **kwargs)
+        return favorite_shopping_cart(self, request, Favorite, **kwargs)
 
     @action(detail=True, methods=['post', 'delete'],
             permission_classes=(IsAuthenticated,),
             pagination_class=None)
     def shopping_cart(self, request, **kwargs):
-        favorite_shopping_cart(self, request, ShoppingCart, **kwargs)
+        return favorite_shopping_cart(self, request, ShoppingCart, **kwargs)
 
     @action(detail=False, methods=['get'],
             permission_classes=(IsAuthenticated,))
