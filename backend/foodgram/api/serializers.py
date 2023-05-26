@@ -1,13 +1,12 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions as django_exceptions
-from djoser.serializers import UserCreateSerializer, UserSerializer
 from django.db import transaction
+from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_base64.fields import Base64ImageField
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingCart, Tag)
 from rest_framework import serializers
-
-from recipes.models import (Tag, Ingredient, Recipe, Favorite, ShoppingCart,
-                            RecipeIngredient)
-from users.models import UserFoodgram, Follow
+from users.models import Follow, UserFoodgram
 
 
 class UserReadSerializer(UserSerializer):
