@@ -2,6 +2,7 @@
 
 ![](https://github.com/IvanTsyganov/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
+
 ## Author
 Ivan Tsyganov (zamegagurren@yandex.ru)
 ## Description 
