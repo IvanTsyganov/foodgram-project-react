@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'count', 'measurement_unit')
+    list_display = ('pk', 'name', 'measurement_unit')
     list_filter = ('name', )
     search_fields = ('name', )
 
@@ -20,11 +20,11 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(models.Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = (
-        'pk', 'title', 'author', 'text', 'in_favorites'
+        'pk', 'name', 'author', 'text', 'in_favorites'
     )
-    search_fields = ('title', 'author', 'tag')
-    list_filter = ('title', 'author', 'tag', 'pub_date')
-    filter_vertical = ('tag',)
+    search_fields = ('name', 'author', 'tags')
+    list_filter = ('name', 'author', 'tags', 'pub_date')
+    filter_vertical = ('tags',)
     empy_value_display = '-пусто-'
 
     @admin.display(description='В избранном')

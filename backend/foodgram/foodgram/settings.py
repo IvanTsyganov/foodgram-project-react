@@ -5,16 +5,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,18 +21,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
     'django_filters',
+    'corsheaders',
+    'rest_framework.authtoken',
     'djoser',
-    'api',
-    'recipes',
-    'users',
+    'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
+    'recipes.apps.RecipesConfig',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -63,7 +61,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'foodgram.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': os.getenv(
@@ -76,19 +73,22 @@ DATABASES = {
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': ('django.contrib.auth.password_validation'
+                 '.UserAttributeSimilarityValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': ('django.contrib.auth.password_validation'
+                 '.MinimumLengthValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation'
+                 '.CommonPasswordValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation'
+                 '.NumericPasswordValidator'),
     },
 ]
 
@@ -113,8 +113,7 @@ DJOSER = {
     'LOGIN_FIELD': 'email',
 }
 
-
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -126,7 +125,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.UserFoodgram'
+AUTH_USER_MODEL = 'users.User'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

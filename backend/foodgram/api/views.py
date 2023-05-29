@@ -9,15 +9,15 @@ from rest_framework import filters, mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from users.models import Follow, UserFoodgram
+from users.models import Follow, User
 
 from .filters import RecipeFilter
 from .methods import favorite_shopping_cart
 from .pagination import CustomPaginator
 from .permissions import IsAuthorOrReadOnly
-from .serializers import (FollowAuthorSerializer, IngredientSerializer,
-                          RecipeCreateSerializer, RecipeReadSerializer,
-                          SetPasswordSerializer, SubscriptionsSerializer,
+from .serializers import (IngredientSerializer, RecipeCreateSerializer,
+                          RecipeReadSerializer, SetPasswordSerializer,
+                          SubscribeAuthorSerializer, SubscriptionsSerializer,
                           TagSerializer, UserCreateSerializer,
                           UserReadSerializer)
 
@@ -26,7 +26,7 @@ class UserViewSet(mixins.CreateModelMixin,
                   mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,
                   viewsets.GenericViewSet):
-    queryset = UserFoodgram.objects.all()
+    queryset = User.objects.all()
     permission_classes = (AllowAny,)
     pagination_class = CustomPaginator
 
@@ -56,7 +56,7 @@ class UserViewSet(mixins.CreateModelMixin,
             permission_classes=(IsAuthenticated,),
             pagination_class=CustomPaginator)
     def subscriptions(self, request):
-        queryset = UserFoodgram.objects.filter(subscribing__user=request.user)
+        queryset = User.objects.filter(subscribing__user=request.user)
         page = self.paginate_queryset(queryset)
         serializer = SubscriptionsSerializer(page, many=True,
                                              context={'request': request})
@@ -65,10 +65,10 @@ class UserViewSet(mixins.CreateModelMixin,
     @action(detail=True, methods=['post', 'delete'],
             permission_classes=(IsAuthenticated,))
     def subscribe(self, request, **kwargs):
-        author = get_object_or_404(UserFoodgram, id=kwargs['pk'])
+        author = get_object_or_404(User, id=kwargs['pk'])
 
         if request.method == 'POST':
-            serializer = FollowAuthorSerializer(
+            serializer = SubscribeAuthorSerializer(
                 author, data=request.data, context={"request": request})
             serializer.is_valid(raise_exception=True)
             Follow.objects.create(user=request.user, author=author)

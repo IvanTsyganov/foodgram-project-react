@@ -1,6 +1,6 @@
 # Foodgram
 
-![](https://github.com/IvanTsyganov/foodgram-project-react/actions/workflows/foodgram-workflow.yml/badge.svg)
+![](https://github.com/IvanTsyganov/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
 
 
 ## Author
