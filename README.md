@@ -57,12 +57,3 @@ docker-compose exec backend python manage.py collectstatic --no-input
 9. Before recipe creation you have to sign in as superuser in
  http://localhost/admin and add some tags:
 10. Use API documentation http://localhost/api/docs/redoc.html.
-
-Server and superuser data:
-
-server public ip: 
-```62.84.121.7```
-
-superuser:
-- name: admin
-- password: 12qwaszx
